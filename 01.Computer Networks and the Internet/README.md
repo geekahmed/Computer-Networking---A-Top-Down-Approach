@@ -123,12 +123,24 @@
 	 - In TDM, when the network establishes a connection across a link, the network dedicates one time slot in every frame to the connection which is used only for that connection.
  -  Suppose users share a 2 Mbps link. Also suppose each user transmits continuously at 1 Mbps when transmitting, but each user transmits only 20 percent of the time.
 	 - When circuit switching is used, how many users can be supported?
+		 - 2 users can be supported because each user requires half of the link bandwidth.
 	 - For the remainder of this problem, suppose packet switching is used. Why will there be essentially no queuing delay before the link if two or fewer users transmit at the same time? Why will there be a queuing delay if three users transmit at the same time?
+		 - Since each user requires 1Mbps when transmitting, if two or fewer users transmit simultaneously, a maximum of 2Mbps will be required. Since the available bandwidth of the shared link is 2Mbps, there will be no queuing delay before the link. Whereas, if three users transmit simultaneously, the bandwidth required will be 3Mbps which is more than the available bandwidth of the shared link. In this case, there will be queuing delay before the link.
 	 - Find the probability that a given user is transmitting.
+		 - 0.008
 	 - Suppose now there are three users. Find the probability that at any given time, all three users are transmitting simultaneously. Find the fraction of time during which the queue grows.
+		 - Since the queue grows when all the users are transmitting, the fraction of time during which the queue grows (which is equal to the probability that all three users are transmitting simultaneously) is 0.008.
  - Why will two ISPs at the same level of the hierarchy often peer with each other? How does an IXP earn money?
+	 - By peering with each other, two ISP’s can reduce their cost and avoid paying to the intermediate ISP provider.
+	- An Internet Exchange Points (IXP) can earn money by charging each ISP that connects to it. The IXP charges each ISP based on the amount of traffic sent to or received from the IXP.
  -  Some content providers have created their own networks. Describe Google’s network. What motivates content providers to create these networks?
-
+	- Google’s network: 
+		- This network provides global data. 
+		- It is used to transfer content within the Google servers. 
+		- Its contains some Tier-1 ISP and interconnect with TCP/IP.
+	- Motivates: 
+		- It is used to save money by transfer data and less time to travel content. 
+		- Content providers to control over the services.
 ## Section 4. Delay, Loss, and Throughput in Packet-Switched Networks
 ### Notes
 ### Review Questions
