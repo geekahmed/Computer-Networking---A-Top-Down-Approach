@@ -1,4 +1,5 @@
 
+
 # Chapter 1. Computer Networks and the Internet
 
 ## Section 1. What Is the Internet?
@@ -98,7 +99,35 @@
 
 ## Section 3. The Network Core
 ### Notes
+ - To send a message from source end system to a destination end system, the source breaks long messages into smaller chunks of data known as packets.
+ - Packet switches implement the store-and-forward mechanism.
+	- That means the packet switch must receive the entire packet before it can begin to transmit the first bit of the packet onto the outbound link.
+ - Propagation delay is the time takes for the bits to travel across the wire near the speed of light.
+ - End-to-end delay equals: N*(L/R)
+	- N: number of links.
+	- R: rate of each link
+	- L: packet length
+ - Each packet switch has multiple links attached to it.
+	- For each attached link, the packet switch has an output buffer, which stores packets that the router is about to send into that link.
+ - Packets suffer from delaying due to store-and-forward and queuing.
+ - Packet loss occurs when there is a congestion in the network which results in the filling of the output buffer.
+ - Each router has a forwarding table that maps destination addresses to the router's outbound links.
 ### Review Questions
+ - Suppose there is exactly one packet switch between a sending host and a receiving host. The transmission rates between the sending host and the switch and between the switch and the receiving host are R1 and R2, respectively. Assuming that the switch uses store-and-forward packet switching, what is the total end-to-end delay to send a packet of length L? (Ignore queuing, propagation delay, and processing delay.)
+	 - (L/R1)+(L/R2)
+ - What advantage does a circuit-switched network have over a packet switched network? What advantages does TDM have over FDM in a circuit-switched network?
+	 - Circuit-switched networks are well suitable for real time servicessuch as voice calls and video calls whereas packet-switched network are not suitable for real time services. They are suitable for handling data.
+	 - In circuit-switched networks, the transmission link is pre-allocated without taking into consideration the demand whereas packet-switched network allocates transmission link on demand.
+	 - In circuit-switched network, the bandwidth is reserved and so packets arrive within the bandwidth whereas in packet-switched network, the bandwidth is not reserved and so the packets may have to wait for their turn to be forwarded.
+	 - In time division multiplexing, all connections operate with same frequency at different times where as in frequency division multiplexing, all connections operate with different frequencies at the same time.
+	 - In TDM, when the network establishes a connection across a link, the network dedicates one time slot in every frame to the connection which is used only for that connection.
+ -  Suppose users share a 2 Mbps link. Also suppose each user transmits continuously at 1 Mbps when transmitting, but each user transmits only 20 percent of the time.
+	 - When circuit switching is used, how many users can be supported?
+	 - For the remainder of this problem, suppose packet switching is used. Why will there be essentially no queuing delay before the link if two or fewer users transmit at the same time? Why will there be a queuing delay if three users transmit at the same time?
+	 - Find the probability that a given user is transmitting.
+	 - Suppose now there are three users. Find the probability that at any given time, all three users are transmitting simultaneously. Find the fraction of time during which the queue grows.
+ - Why will two ISPs at the same level of the hierarchy often peer with each other? How does an IXP earn money?
+ -  Some content providers have created their own networks. Describe Google’s network. What motivates content providers to create these networks?
 
 ## Section 4. Delay, Loss, and Throughput in Packet-Switched Networks
 ### Notes
