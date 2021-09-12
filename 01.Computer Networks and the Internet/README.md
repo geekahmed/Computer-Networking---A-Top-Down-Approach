@@ -1,5 +1,3 @@
-
-
 # Chapter 1. Computer Networks and the Internet
 
 ## Section 1. What Is the Internet?
@@ -143,14 +141,61 @@
 		- Content providers to control over the services.
 ## Section 4. Delay, Loss, and Throughput in Packet-Switched Networks
 ### Notes
+- The most important delays that face packets are:
+	- Nodal Processing Delay
+		- The time required to examine the packet's header and determine where to direct the packet.
+		- This delay is typically on the order of microseconds or less.
+	- Queuing Delay
+		- At the queue, the packet experiences a delay as it waits to be transmitted onto the link.
+		- This delay can be on the order of microseconds to milliseconds.
+	- Transmission Delay
+		- The amount of time required to push all of the packet's bits into the link.
+		- This delay is on the order of microseconds to milliseconds.
+	- Propagation Delay
+		- The time required to propagate from the beginning of the link to the next router.
+		- The speed depends on the link physical medium.
+		- In WAN, this dely is on the order of milliseconds.
+- The traffic intensity is the ration of (arrival rate of bits) and (service rate of bits)
+	- let, a: average packet arrival rate, L: packet length (bits), R: link bandwidth (bit transmission rate).
+	- Traffic Intensity = L.a/R
+	- La/R ~ 0: avg. queueing delay small
+	- La/R -> 1: avg. queueing delay large
+	- La/R > 1: more “work” arriving  is more than can be serviced -  average delay infinite!
+- The fraction of lost packets increases as the traffic intensity increases.
+- Performance at a node is often measured not only in terms of delay, but also in terms of the probability of packet loss.
+- traceroute program: provides delay measurement from source to router along end-end Internet path towards destination.
+- Throughput: rate (bits/time unit) at which bits are being sent from sender to receiver.
+	- instantaneous: rate at given point in time.
+	- average: rate over longer period of time.
+- bottleneck link: link on end-end path that constrains  end-end throughput.
 ### Review Questions
+- Consider sending a packet from a source host to a destination host over a fixed route. List the delay components in the end-to-end delay. Which of these delays are constant and which are variable?
+	- Nodal Processing Delay (Constant).
+	- Queuing Dealy (Variable).
+	- Transmission Delay (Constant).
+	- Propagation Delay (Constant).
+-  How long does it take a packet of length 1,000 bytes to propagate over a link of distance 2,500 km, propagation speed 2.5 * 10^8 m/s, and transmission rate 2 Mbps? More generally, how long does it take a packet of length L to propagate over a link of distance d, propagation speed s, and transmission rate R bps? Does this delay depend on packet length? Does this delay depend on transmission rate?
+	- The propagation delay is the ratio between the distance and the speed which is numerically equal to 0.01 seconds.
+	- This numerical value doesn't depend on the length of the packet or the transmission rate.
+- Suppose Host A wants to send a large file to Host B. The path from Host A to Host B has three links, of rates R1 = 500 kbps, R2 = 2 Mbps, and R3 = 1 Mbps. 
+	- a. Assuming no other traffic in the network, what is the throughput for the file transfer?
+		- The minimum value of the rates of the three links = 500 Kbps.
+	- b. Suppose the file is 4 million bytes. Dividing the file size by the throughput, roughly how long will it take to transfer the file to Host B?
+		- 64 seconds.
 ## Section 5. Protocol Layers and Their Service Models
 ### Notes
 ### Review Questions
+-  List five tasks that a layer can perform. Is it possible that one (or more) of these tasks could be performed by two (or more) layers?
+- What are the five layers in the Internet protocol stack? What are the principal responsibilities of each of these layers?
+- What is an application-layer message? A transport-layer segment? A network-layer datagram? A link-layer frame?
+- Which layers in the Internet protocol stack does a router process? Which layers does a link-layer switch process? Which layers does a host process?
 ## Section 6. Networks Under Attack
 ### Notes
 ### Review Questions
+-  What is self-replicating malware?
+- Describe how a botnet can be created and how it can be used for a DDoS attack.
+- Suppose Alice and Bob are sending packets to each other over a computer network. Suppose Trudy positions herself in the network so that she can capture all the packets sent by Alice and send whatever she wants to Bob; she can also capture all the packets sent by Bob and send whatever she wants to Alice. List some of the malicious things Trudy can do from this position.
 ## Section 7. History of Computer Networking and the Internet
 ### Notes
-### Review Questions
+
 
