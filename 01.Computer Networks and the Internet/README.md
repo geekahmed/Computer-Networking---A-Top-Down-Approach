@@ -184,18 +184,37 @@
 		- 64 seconds.
 ## Section 5. Protocol Layers and Their Service Models
 ### Notes
+- A layered architecture allows us to discuss a well-defined, specific part of a large and complex system.
+- The internet protocol stack consists of the following layers from top to down:
+	- Application layer: HTTP, SMTP, FTP, DNS
+	- Transport layer: TCP, UDP
+	- Network layer: IP
+	- Link layer: Ethernet, WIFI
+	- Physical layer
 ### Review Questions
 -  List five tasks that a layer can perform. Is it possible that one (or more) of these tasks could be performed by two (or more) layers?
+	-  Five generic tasks are error control, flow control, segmentation and reassembly, multiplexing, and connection setup.
+	- Yes. Each layer in the Internet protocal stack implement an error recovery on pre-link basis and end-to-end basis.
 - What are the five layers in the Internet protocol stack? What are the principal responsibilities of each of these layers?
+	- Application layer: 
+	- Transport layer: transports application-layer messages between application endpoints.
+	- Network layer: moves network-layer packets from one host to another.
+	- Link layer: routes a datagram through a series of routers between the source and destination.
+	- Physical layer: moves the individual bits within the frame from one node to the next.
 - What is an application-layer message? A transport-layer segment? A network-layer datagram? A link-layer frame?
+	- Application-layer message is the information at the application layer.
+	- Transport-layer segment is the packet at the transport layer after adding headers.
 - Which layers in the Internet protocol stack does a router process? Which layers does a link-layer switch process? Which layers does a host process?
+	- Routers process network, link and physical layers (layers 1 through 3).
+	- Link layer switches process link and physical layers (layers 1 through 2).
+	- Hosts process all five layers.
 ## Section 6. Networks Under Attack
 ### Notes
+- 
 ### Review Questions
 -  What is self-replicating malware?
 - Describe how a botnet can be created and how it can be used for a DDoS attack.
 - Suppose Alice and Bob are sending packets to each other over a computer network. Suppose Trudy positions herself in the network so that she can capture all the packets sent by Alice and send whatever she wants to Bob; she can also capture all the packets sent by Bob and send whatever she wants to Alice. List some of the malicious things Trudy can do from this position.
 ## Section 7. History of Computer Networking and the Internet
 ### Notes
-
 
