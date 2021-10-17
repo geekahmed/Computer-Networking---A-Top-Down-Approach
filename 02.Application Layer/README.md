@@ -121,27 +121,63 @@ layer side is:
 - HTTP/2 has the ability to send multiple responses for a single client request (Pushing additional objects to the client).
 ## Section 3.  Electronic Mail in the Internet
 ### Notes
-- 
+- SMTP is the principal application-layer protocol for Internet electronic mail.
+	- It uses reliable data transfer service of TCP.
+- SMTP does not normally use intermediate mail servers for sending mail, even when the two mail servers are located at opposite ends of the world.
+- SMTP is a push operation.
+- Internet Mail Access Protocol (IMAP) is a protocol for user agents to use manage their mail box in the mail server.
 ## Section 4.  DNS—The Internet’s Directory Service
 ### Notes
+- The DNS is:
+	- a distrbuted database implemented in a heirarchy of DNS servers
+	- an application-layer protocol that allows hosts to query the distributed database
+- The DNS protocol runs over UDP and uses port 53.
+- Services provided by the DNS:
+	- Host aliasing: a complex hostname may have a more simple alias and this converting process is provided by the DNS.
+	- Mail server aliasing: the MX record permits a company's mail server and Web server to have identical (aliased) hostnames.
+	- Load distribution: DNS is used to perform load distribution among replicated server.
+- A centerlized database in a single DNS server doesn't scale. So, it is distributed by design.
+- DNS servers are classified as follow:
+	- Root DNS server: provides the IP addresses of the TLD servers.
+	- Top-level domain (TLD) DNS servers
+	- Authoritative DNS servers
+- DNS exploits DNS caching in order to improve the delay performance and to reduce the number of DNS messages ricocheting around the Internet.
+- A resource record is a four-tuple that contains the following fields:
+	- Name: it depeneds on the type.
+	- Value: it depeneds on the type.
+	- Type: A, NS, CNAME, MX.
+	- TTL: it determines when a resource should be removed from a cache.
+- If Type=A, then Name is a hostname and Value is the IP address for the hostname. Thus, a Type A record provides the standard hostname-to-IP address mapping.
+- If Type=NS, then Name is a domain (such as foo.com) and Value is the hostname of an authoritative DNS server that knows how to obtain the IP addresses for hosts in the domain.
+- If Type=CNAME, then Value is a canonical hostname for the alias hostname Name. This record can provide querying hosts the canonical name for a hostname.
+- If Type=MX, then Value is the canonical name of a mail server that has an alias hostname Name.
+- There are only two types of DNS messages:
+	- Query message.
+	- Reply message.
 ## Section 5.  Peer-to-Peer File Distribution
 ### Notes
 ### Review Questions - Section 2:5
 - What is meant by a handshaking protocol?
+	- It is a mechanism that allow each server to define himself to the other server after establishing the connection.
 - Why do HTTP, SMTP, and IMAP run on top of TCP rather than on UDP?
+	- Because all of them need a reliable data transfer that ensures the messages are sent to the destination correctly without error and ordered.
 - Consider an e-commerce site that wants to keep a purchase record for each of its customers. Describe how this can be done with cookies.
 	- After the client logs into the system, it will assign him  a cookie id which will be sent to the server in the subsequent responeses. This id will be persisted in the database and relates to the user data.
 - Describe how Web caching can reduce the delay in receiving a requested object. Will Web caching reduce the delay for all objects requested by a user or for only some of the objects? Why?
 	- Web cache will store the content of the request and if the same user or another one ordered the same content it will be served through the cache first before getting it from the original server.
 	- The cache will reuce the delay for 20% to 70% in practice.
 - List several popular messaging apps. Do they use the same protocols as SMS?
+	- Gmail, Outlook, Proton Mail
 - Suppose Alice, with a Web-based e-mail account (such as Hotmail or Gmail), sends a message to Bob, who accesses his mail from his mail server using IMAP. Discuss how the message gets from Alice’s host to Bob’s host. Be sure to list the series of application-layer protocols that are used to move the message between the two hosts.
-- Print out the header of an e-mail message you have recently received. How many Received: header lines are there? Analyze each of the header lines in the message.
+	- Alice send the message to his mail server using SMTP or HTTP protocol.
+	- Alice's mail server will put the message in a queue and attempt to send the message to Bob's mail server through SMTP.
+	- When Bob's needs to find his messages, he communicate to his mail server through HTTP or IMAP to pull his messages in the mail box.
 - What is the HOL blocking issue in HTTP/1.1? How does HTTP/2 attempt to solve it?
 	- It is a problem faces the client on requesting a content has huge data near the top of this content. For example, a web page has a video clip near the top of the page. Which makes a blocking for the other smaller objects behind it to load.
 	- HTTP/2 make a parallel streaming to the data with multiplexing and interleaving packets by using frames. HTTP/2 divide and package the packets in a new way using binary protocol and provide a mechanism of re-ordering and prioritization.
 - Is it possible for an organization’s Web server and mail server to have exactly the same alias for a hostname (for example, foo.com)? What would be the type for the RR that contains the hostname of the mail server?
-- Look over your received e-mails, and examine the header of a message sent from a user with a .edu e-mail address. Is it possible to determine from the header the IP address of the host from which the message was sent? Do the same for a message sent from a Gmail account.
+	- Yes, it is possible.
+	- MX records.
 - In BitTorrent, suppose Alice provides chunks to Bob throughout a 30-second interval. Will Bob necessarily return the favor and provide chunks to Alice in this same interval? Why or why not?
 - Consider a new peer Alice that joins BitTorrent without possessing any chunks. Without any chunks, she cannot become a top-four uploader for any of the other peers, since she has nothing to upload. How then will Alice get her first chunk?
 - What is an overlay network? Does it include routers? What are the edges in the overlay network?
