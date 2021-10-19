@@ -154,8 +154,6 @@ layer side is:
 - There are only two types of DNS messages:
 	- Query message.
 	- Reply message.
-## Section 5.  Peer-to-Peer File Distribution
-### Notes
 ### Review Questions - Section 2:5
 - What is meant by a handshaking protocol?
 	- It is a mechanism that allow each server to define himself to the other server after establishing the connection.
@@ -178,16 +176,13 @@ layer side is:
 - Is it possible for an organization’s Web server and mail server to have exactly the same alias for a hostname (for example, foo.com)? What would be the type for the RR that contains the hostname of the mail server?
 	- Yes, it is possible.
 	- MX records.
-- In BitTorrent, suppose Alice provides chunks to Bob throughout a 30-second interval. Will Bob necessarily return the favor and provide chunks to Alice in this same interval? Why or why not?
-- Consider a new peer Alice that joins BitTorrent without possessing any chunks. Without any chunks, she cannot become a top-four uploader for any of the other peers, since she has nothing to upload. How then will Alice get her first chunk?
-- What is an overlay network? Does it include routers? What are the edges in the overlay network?
 ## Section 6.  Video Streaming and Content Distribution Networks
-### Notes
 ### Review Questions
 - CDNs typically adopt one of two different server placement philosophies. Name and briefly describe them.
+	- Enter Deep.
+	- Bring Home.
 - Besides network-related considerations such as delay, loss, and bandwidth performance, there are other important factors that go into designing a CDN server selection strategy. What are they?
-## Section 7.  Socket Programming: Creating Network Applications
-### Notes
-### Review Questions
-- In Section 2.7, the UDP server described needed only one socket, whereas the TCP server needed two sockets. Why? If the TCP server were to support n simultaneous connections, each from a different client host, how many sockets would the TCP server need?
-- For the client-server application over TCP described in Section 2.7, why must the server program be executed before the client program? For the client-server application over UDP, why may the client program be executed before the server program?
+	- Latency
+	- Throughput
+	- Failure
+	- Cost
