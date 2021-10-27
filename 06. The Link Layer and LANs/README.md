@@ -25,6 +25,15 @@
 - The software components of the link layer implement higher-level link-layer functionality such as assembling link-layer addressing information and activating the controller hardware.
 ## Section 2. Error-Detection and -Correction Techniques
 ### Notes
+- Error-detection and -correction techniques allow the receiver to sometimes, but not always, detect that bit errors have occurred.
+	- Even with the use of error-detection bits there still may be undetected bit errors; that is, the receiver may be unaware that the received information contains bit errors.
+- The simplest form of error detection is the use of a single parity bit.
+- In an even parity scheme, the sender simply includes one additional bit and chooses its value such that the total number of 1s in the d + 1 bits (the original information plus a parity bit) is even.
+	- For odd parity schemes, the parity bit value is chosen such that there is an odd number of 1s.
+- The ability of the receiver to both detect and correct errors is known as forward error correction (FEC).
+- In checksumming techniques, the d bits of data are treated as a sequence of k-bit integers.
+	- One simple checksumming method is to simply sum these k-bit integers and use the resulting sum as the error-detection bits.
+- An error-detection technique used widely in today’s computer networks is based on cyclic redundancy check (CRC) codes. CRC codes are also known as polynomial codes, since it is possible to view the bit string to be sent as a polynomial whose coefficients are the 0 and 1 values in the bit string, with operations on the bit string interpreted as polynomial arithmetic.
 ### Review Questions - SECTIONS 6.1–6.2
 - Consider the transportation analogy in Section 6.1.1. If the passenger is analagous to a datagram, what is analogous to the link layer frame?
 	- Link-layer frame is analogous to transportation tickets like plane ticket or bus ticket.
