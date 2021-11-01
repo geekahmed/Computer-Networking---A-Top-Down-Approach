@@ -51,3 +51,100 @@
 		- Link access
 		- Framing 
 		- Error detection and correction
+## Section 3. Multiple Access Links and Protocols
+### Notes
+### Review Questions
+## Section 4. Switched Local Area Networks
+### Notes
+- A host or router with multiple network interfaces will have multiple link-layer addresses associated with it.
+- The link-layer switches do not have link-layer addresses associated with their interfaces that connect to hosts and routers.
+	- because the job of the link-layer switch is to carry datagrams between hosts and routers.
+	- a switch does this job transparently without the host or router having to explicitly address the frame to the intervening switch.
+- A link-layer address is variously called a LAN address, a physical address, or a MAC address.
+- One interesting property of MAC addresses is that no two adapters have the same address.
+- An adapter’s MAC address has a flat structure (as opposed to a hierarchical structure) and doesn’t change no matter where the adapter goes.
+- An adapter’s MAC address is analogous to a person’s social security number, which also has a flat addressing structure and which doesn’t change no matter where the person goes. An IP address is analogous to a person’s postal address, which is hierarchical and which must be changed whenever a person moves.
+- Because there are both network-layer addresses (for example, Internet IP addresses) and link-layer addresses (that is, MAC addresses), there is a need to translate between them. For the Internet, this is the job of the Address Resolution Protocol (ARP)
+- ARP packet includes, sending and receiving IP and MAC addresses.
+- A router has an IP address for each of its interfaces.
+	- For each router interface there is also an ARP module (in the router) and an adapter.
+- In order to send a packet off the subnet, you should send it to the router and it will make the desired computations to send the packet to the ultimate destination.
+- A hub is a physical layer device that acts on individual bits rather than frames.
+	- When a bit, representing a zero or one, arrives from one interface, the hub simply re-creates the bit, boosts its energy strength, and transmits the bit onto all the other interfaces.
+- A switch has replaces the hub in the early 2000s.
+- Ethernet frame structure as follows:
+	- Data field (46 to 1500 bytes): This field carries the IP datagram. It should adhere to the minimum and maximum transmisstion units.
+	- Destination address (6 bytes): This field contains the MAC address of the destination adapter.
+	- Source address (6 bytes): This field contains the MAC address of the adapter that transmits the frame onto the LAN.
+	- Type field (2 bytes): The type field permits Ethernet to multiplex network-layer protocols.
+	- CRC field (4 bytes): It allows the receiving adapter to detect bit errors in the frame.
+	- Preamble (8 bytes): The first 7 bytes of the preamble has a value of "10101010" and the last byte "10101011". The first 7 bytes serve to "wake-up" the receiving adapters and to synchronize their clocks to that of the sender's clock.
+- All of the Ethernet technologies provide connectionless service to the network layer.
+- Ethernet technologies provide an unreliable service to the network layer.
+- A repeater is a physical-layer device that receives a signal on the input side, and regenerates the signal on the output side.
+- The role of the switch is to receive incoming link-layer frames and forward them onto outgoing links.
+- The switch itself is transparent to the hosts and routers in the subnet.
+- Filtering is the switch function that determines whether a frame should be forwarded to some interface or should just be dropped.
+- Forwarding is the switch function that determines the interfaces to which a frame should be directed, and then moves the frame to those interfaces.
+- The switch table contains entries for some, but not necessarily all, of the hosts and routers on a LAN.
+	- An entry in the switch table contains:
+		- a MAC address
+		- the switch interface that leads toward that MAC address
+		- the time at which the entry was placed in the table.
+- Switches are self-learner, the switch table is generated automatically, dynamically, and autonomously without any intervention from a network administrator.
+- Switches are plug-and-play devices because they require no intervention from a network administrator or user.
+- Switches are also full-duplex, meaning any switch interface can send and receive at the same time.
+- Advantages of using switches, rather than broadcast links such as buses or hub-based star topologies:
+	- Elimination of collisions.
+	- Heterogeneous links.
+	- Management.
+- Drawbacks of using pure switch configurations:
+	- Lack of traffic isolation.
+	- Inefficient use of switches.
+	- Problems in managing users.
+- A switch that supports virtual local area networks (VLANs) allows multiple virtual local area networks to be defined over a single physical local area network infrastructure.
+- To make 2 VLANs communicate, we need internal/external router to forward the traffic accross them.
+- Extending a VLAN port-based switch could be done by two approaches:
+	- Defining a port that belongs to each VLAN in each switch and connect them.
+	- Using VLAN trunking.
+		- In the VLAN trunking approach, a special port on each switch is configured as a trunk port to interconnect the two VLAN switches.
+- The IEEE has defined an extended Ethernet frame format, 802.1Q, for frames crossing a VLAN trunk.
+	- The 802.1Q frame consists of the standard Ethernet frame with a four-byte VLAN tag added into the header that carries the identity of the VLAN to which the frame belongs.
+	- The VLAN tag is added into a frame by the switch at the sending side of a VLAN trunk, parsed, and removed by the switch at the receiving side of the trunk.
+	- The VLAN tag itself consists of:
+		- a 2-byte Tag Protocol Identifier (TPID) field (with a fixed hexadecimal value of 81-00)
+		- a 2-byte Tag Control Information field that contains a 12-bit VLAN identifier field
+		- a 3-bit priority field that is similar in intent to the IP datagram TOS field.
+- In MAC-based VLANs, the network manager specifies the set of MAC addresses that belong to each VLAN.
+- VLANs can be defined based on network-layer protocols (e.g., IPv4, IPv6, or Appletalk) and other criteria.
+### Review Questions
+- How big is the MAC address space? The IPv4 address space? The IPv6 address space?
+	- MAC addresses: $2^{48}$  
+	- IPv4 addresses: $2^{32}$  
+	- IPv6 addresses: $2^{128}$  
+- Suppose nodes A, B, and C each attach to the same broadcast LAN (through their adapters). If A sends thousands of IP datagrams to B with each encapsulating frame addressed to the MAC address of B, will C’s adapter process these frames? If so, will C’s adapter pass the IP datagrams in these frames to the network layer C? How would your answers change if A sends frames with the MAC broadcast address?
+	- In the first scenario, since node A attach the MAC address for B in the frame and B is still in the network, so, node C will not process the frame till the end, it will just process the first 6 bytes to check the MAC address. If the MAC address belongs to C, then it will complete processing, else, it will ignore the frame.
+	- In the second scenario, since the message is a MAC broadcast message, then all nodes will process the frame and held it up to the above layer which is the network layer.
+- Why is an ARP query sent within a broadcast frame? Why is an ARP response sent within a frame with a specific destination MAC address?
+	- Because we use ARP query to get the MAC address for specific IP if not in the ARP table. So, it should be broadcasted in order to reach all the nodes in the network.
+	- On the other hand, replying to and ARP query doesn't need to be broadcasted because we just reply to the node which queried not all nodes.
+- For the network in Figure 6.19, the router has two ARP modules, each with its own ARP table. Is it possible that the same MAC address appears in both tables?
+	- No, it is not possible. Each LAN has its own distinct set of adapters attached to it, with each adapter having a unique LAN address.
+- Compare the frame structures for 10BASE-T, 100BASE-T, and Gigabit Ethernet. How do they differ?
+	- 10BASE-T, 100BASE-T and Gigabit Ethernet have identical frame structure. They only difference between the three technologies is speed at which they transmit the data. The fields in the Ethernet frame structure are as follows:
+		- The “Data Field” is used to carry IP datagram and size is 46 to 1500 bytes.
+		- The “Destination Address Field” contains destination adapter’s MAC address and size is 6 bytes.
+		- The “Source Address Field” contains adapter’s MAC address that sends the frame to LAN and size is 6 bytes.
+		- The “Type2 Field” helps the Ethernet to connect with multiplex network layer protocols and size is 2 bytes.
+		- The “Cycle Redundancy Check (CRC) field”, is used to detect the errors using the CRC field and size is 4 bytes.
+		- The “Preamble field” is the first field used to identify the beginning of the Ethernet frame and size is 8 bytes.
+- Consider Figure 6.15. How many subnetworks are there, in the addressing sense of Section 4.3?
+	- 2 sub-networks.
+- What is the maximum number of VLANs that can be configured on a switch supporting the 802.1Q protocol? Why?
+	- We could only configure up to $2^{12}$ VLANs.
+	- Because VLAN identifier field is only 12 bits.
+- Suppose that N switches supporting K VLAN groups are to be connected via a trunking protocol. How many ports are needed to connect the switches? Justify your answer.
+	- The first switch uses only one port for the output.
+	- The last switch uses only one port for the input.
+	- For each switch except the first and the last one, it will use 2 ports one for input and one for output.
+	- So, the total number of ports needed is $2*N-2$
