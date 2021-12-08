@@ -7,11 +7,11 @@ Each chapter is presented as a directory that contains a README file that compri
 
 ## Brief Content
 - [Chapter 1. Computer Networks and the Internet](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/01.Computer%20Networks%20and%20the%20Internet)
-- [Chapter 2. Application Layer](#)
+- [Chapter 2. Application Layer](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/02.Application%20Layer)
 - [Chapter 3. Transport Layer](#)
-- [Chapter 4. The Network Layer: Data Plane](#)
-- [Chapter 5.  The Network Layer: Control Plane](#)
-- [Chapter 6. The Link Layer and LANs](#)
+- [Chapter 4. The Network Layer: Data Plane](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/04.%20The%20Network%20Layer:%20Data%20Plane)
+- [Chapter 5.  The Network Layer: Control Plane](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/05.%20The%20Network%20Layer:%20Control%20Plane)
+- [Chapter 6. The Link Layer and LANs](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/06.%20The%20Link%20Layer%20and%20LANs)
 - [Chapter 7. Wireless and Mobile Networks](#)
 - [Chapter 8. Security in Computer Networks](#)
 
