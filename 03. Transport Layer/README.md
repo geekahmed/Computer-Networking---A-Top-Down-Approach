@@ -79,5 +79,47 @@
 ### Review Questions - Sections 3.1–3.3
 - Suppose the network layer provides the following service. The network layer in the source host accepts a segment of maximum size 1,200 bytes and a destination host address from the transport layer. The network layer then guarantees to deliver the segment to the transport layer at the destination host. Suppose many network application processes can be running at the destination host.
   - Design the simplest possible transport-layer protocol that will get application data to the desired process at the destination host. Assume the operating system in the destination host has assigned a 4-byte port number to each running application process.
+	  - The Simple Transport Protocol takes data not exceeding 1196 bytes at the sender side.
+		- It accepts four byte of destination port number and host address.
+		- The Simple Transport Protocol gives the destination host address and the resulting segment to the network layer.
+		- The network layer sends the segment to Simple Transport Protocol at the destination host.
+		- The Simple Transport Protocol observes the port number.
+		- Abstracts the data from the segment in the Simple Transport Protocol.
+		- Finally, send the data to the process recognized by the port number. 
   - Modify this protocol so that it provides a “return address” to the destination process.
+	  - Consider the two header fields in the segment:
+		1.  Source port field
+		2.  Destination port field
+	- The Simple Transport Protocol creates application data, source and destination port numbers in the segment. Not exceeding 1192 bytes. It sends the destination host address to the network layer. Then, The Simple Transport Protocol is receiving host address and provides the process the source port number and the application data.
   - In your protocols, does the transport layer “have to do anything” in the core of the computer network?
+	  - **No,**  the transport layer does not have to do anything in the core. The reason is that, the transport layer "lives" in the end systems.
+ - Consider a planet where everyone belongs to a family of six, every family lives in its own house, each house has a unique address, and each person in a given house has a unique name. Suppose this planet has a mail service that delivers letters from source house to destination house. The mail service requires that (1) the letter be in an envelope, and that (2) the address of the destination house (and nothing more) be clearly written on the envelope. Suppose each family has a delegate family member who collects and distributes letters for the other family members. The letters do not necessarily provide any indication of the recipients of the letters.
+	 - Using the solution to Problem R1 above as inspiration, describe a protocol that the delegates can use to deliver letters from a sending family member to a receiving family member.
+		 - The sender has to give the delegate the letter along with the address of the destination house, and the name of the recipient.
+		 - The name of the recipient is written on the top of the letter by the delegate.
+		 - The letter is then put into an envelope. The address of the destination house is written by the delegate.
+		 - The delegate then gives the letter to the planet’s mail service.
+		 - After receiving the letter by the delegate at the receiver’s end, the envelope is opened and the name of the recipient written on the top of the letter is noted.
+		 - The delegate hand overs the letter to the family member, whose name is written on the top of the letter.
+	 - In your protocol, does the mail service ever have to open the envelope and examine the letter in order to provide its service?
+		 - **No**, the delegate at the receiver side is only has right to open the letter in order to give the letter to the recipient.
+ - Consider a TCP connection between Host A and Host B. Suppose that the TCP segments traveling from Host A to Host B have source port number x and destination port number y. What are the source and destination port numbers for the segments traveling from Host B to Host A?
+	 - Source number: y
+	 - Destination number: x
+ - Describe why an application developer might choose to run an application over UDP rather than TCP.
+	  - Finer application-level control over what data is sent, and when.
+	  - No connection establishment.
+	  - No connection state.
+	  - Small packet header overhead.
+ - Why is it that voice and video traffic is often sent over TCP rather than UDP in today’s Internet? (Hint: The answer we are looking for has nothing to do with TCP’s congestion-control mechanism.)
+	 - Because TCP is a reliable transport protocol while UDP is not.
+	 - The most firewalls are configured to block UDP traffic. Using TCP for voice and video traffic allows the traffic go through the firewalls.
+	 - Connections that use voice/video are quite fast and hence prefer TCP as delays due to lost packets would be fewer.
+	 - TCP's advantages over UDP include the fact that it has congestion control, reliable transport, and in-order receipt of segments.
+	 - TCP’s congestion control and reliability mechanisms lead to 100% delivery.
+ - Is it possible for an application to enjoy reliable data transfer even when the application runs over UDP? If so, how?
+	 - **Yes**, This can be done if the reliability is built into the application itself.
+ - Suppose a process in Host C has a UDP socket with port number 6789. Suppose both Host A and Host B each send a UDP segment to Host C with destination port number 6789. Will both of these segments be directed to the same socket at Host C? If so, how will the process at Host C know that these two segments originated from two different hosts?
+	 - **Yes**, both segments will be directed to the same socket. For each received segment at the socket interface, the operating system will provide the process with the IP addresses to determine the origins of the individual segments.
+ - Suppose that a Web server runs in Host C on port 80. Suppose this Web server uses persistent connections, and is currently receiving requests from two different Hosts, A and B. Are all of the requests being sent through the same socket at Host C? If they are being passed through different sockets, do both of the sockets have port 80? Discuss and explain.
+	 - **No**, Host C operating system transport-layer implementation will differentiate between the packets through a tuple of 4 elements: (Source Port, Source IP, Dest. Port, Dest. IP). This differentiation will enable the TCP from de-multiplexing the coming connection to different socket per connection. The identifier for both of these sockets has 80 for the destination port; however, the identifiers for these sockets have different values for source IP addresses.
