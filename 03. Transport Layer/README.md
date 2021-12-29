@@ -36,7 +36,46 @@
 	  - No connection establishment.
 	  - No connection state.
 	  - Small packet header overhead.
-  - 
+  - UDP Segment Structure
+```
+ 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+-----------------------------------------------------------------
+|          Source Port          |        Destination Port       |
+-----------------------------------------------------------------
+|             Length            |            Checksum           |
+-----------------------------------------------------------------
+                                DATA
+```
+	- The application data occupies the data field of the UDP segment.
+	- The UDP header has only four fields, each consisting of two bytes.
+	- The port numbers are used in multiplexing and de-multiplexing features.
+	- The length field specifies the number of bytes in the UDP segment (header + data).
+	- The checksum is used by the receiving host to check whether errors have been introduced into the segment .
+- UDP Checksum
+	- UDP at the sender side performs the 1s complement of the sum of all the 16-bit words in the segment, with any overflow encountered during the sum being wrapped around.
+	- Example of this mechanism.
+	- For the following three 16-bit words:
+		- 0110011001100000
+		- 0101010101010101
+		- 1000111100001100
+	- The sum of first two of these 16-bit words is
+		- 0110011001100000 
+		- 0101010101010101
+		- +----------------------
+		- 1011101110110101
+	- Adding the third word to the above sum gives:
+		- 1011101110110101 
+		- 1000111100001100 
+		- =------------------------
+		- 0100101011000010
+	- The 1s complement is obtained by converting all the 0s to 1s and converting all the 1s to 0s. Thus, the 1s complement of the sum 0100101011000010 is 1011010100111101, which becomes the checksum.
+	- At the receiver, all four 16-bit words are added, including the checksum. If no errors are introduced into the packet, then clearly the sum at the receiver will be 1111111111111111.
+	- If one of the bits is a 0, then we know that errors have been introduced into the packet.
+- Why UDP provides a checksum in the first place, as many link-layer protocols also provide error checking?
+	- There is no guarantee that all the links between source and destination provide error checking.
+	-  If segments are correctly transferred across a link, it’s possible that bit errors could be introduced when a segment is stored in a router’s memory.
+- End-end principle is a system design principle which states that since certain functionality must be implemented on an end-end basis: “functions placed at the lower levels may be redundant or of little value when compared to the cost of providing them at the higher level.”
 ### Review Questions - Sections 3.1–3.3
 - Suppose the network layer provides the following service. The network layer in the source host accepts a segment of maximum size 1,200 bytes and a destination host address from the transport layer. The network layer then guarantees to deliver the segment to the transport layer at the destination host. Suppose many network application processes can be running at the destination host.
   - Design the simplest possible transport-layer protocol that will get application data to the desired process at the destination host. Assume the operating system in the destination host has assigned a 4-byte port number to each running application process.
