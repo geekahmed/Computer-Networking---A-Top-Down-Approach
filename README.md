@@ -6,7 +6,7 @@ This repository presents my learning and reading process for the well-known book
 Each chapter is presented as a directory that contains a README file that comprimeses the notes of the chapter and any other helper videos. Also, it contains a directory which has the solutions for chapter exercises. Not all exercises will be solved in a time. It is an ongoing process.
 
 ## Brief Content
-- [Chapter 1. Computer Networks and the Internet](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/01.Computer%20Networks%20and%20the%20Internet)
+- [Chapter 1. Computer Networks and the Internet](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/01.%20Computer%20Networks%20and%20the%20Internet)
 - [Chapter 2. Application Layer](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/02.Application%20Layer)
 - [Chapter 3. Transport Layer](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/03.%20Transport%20Layer)
 - [Chapter 4. The Network Layer: Data Plane](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/tree/main/04.%20The%20Network%20Layer:%20Data%20Plane)
