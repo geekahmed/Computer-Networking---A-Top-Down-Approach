@@ -133,12 +133,12 @@
 	- This implementation is done over an unreliable channel.
 - **Building a Reliable Data Transfer Protocol**
 - Reliable Data Transfer over a Perfectly Reliable Channel: rdt1.0
-	- ~~**// Photo For the rdt1.0**~~
+	- ![rdt1.0](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/blob/main/03.%20Transport%20Layer/images/rdt1.0.png?raw=true)
 	- The sending side of rdt simply accepts data from the upper layer via the  rdt_send(data) event, creates a packet containing the data (via the action  make_pkt(data)) and sends the packet into the channel.
 	- On the receiving side, rdt receives a packet from the underlying channel via  the rdt_rcv(packet) event, removes the data from the packet (via the action  extract (packet, data)) and passes the data up to the upper layer (via  the action deliver_data(data)). 
 	- In this simple protocol, there is no difference between a unit of data and a packet. Also, all packet flow is from the sender to receiver; with a perfectly reliable channel there is no need for the receiver side to provide any feedback to the sender since nothing can go wrong! Note that we have also assumed that the receiver is able to receive data as fast as the sender happens to send data. Thus, there is no need for the receiver to ask the sender to slow down!
 - Reliable Data Transfer over a Channel with Bit Errors: rdt2.0
-	- ~~**// Photo For the rdt2.0**~~
+	- ![rdt2.0](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/blob/main/03.%20Transport%20Layer/images/rdt2.0.png?raw=true)
 	- Reliable data transfer protocols based on retransimission are known as ARQ (Automatic Repeat reQuest) protocols. There are three required capabilities to handle the presence of bit errors.
 		- Error detection.
 		- Receiver feedback.
@@ -149,8 +149,8 @@
 	- When the sender is in the wait-for-ACK-or-NAK state, it cannot get more data from the upper layer; that is, the rdt_send() event can not occur.
 		- Because of this behavior, protocols such as rdt2.0 are known as stop-and-wait protocols.
 	- The solution for the problem of corrupted ACK/NAK packets is to add a sequence number in the packet. The receiver then need only check this sequence number to determine  whether or not the received packet is a retransmission.
-	- ~~**// Photo For the rdt2.1 Sender**~~
-	- ~~**// Photo For the rdt2.1 Receiver**~~
+	- ![rdt2.1 sender](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/blob/main/03.%20Transport%20Layer/images/rdt2.1-sender.png?raw=true)
+	- ![rdt2.1 reciever](https://github.com/geekahmed/Computer-Networking---A-Top-Down-Approach/blob/main/03.%20Transport%20Layer/images/rdt2.1-reciever.png?raw=true)
 	- 
 ### Review Questions
 - In our rdt protocols, why did we need to introduce sequence numbers?
