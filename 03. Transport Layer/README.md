@@ -24,7 +24,7 @@
 - TCP socket is identified by a four-tuple: (source IP address, source port number, destination IP address, destination port number).
   - when a TCP segment arrives from the network to a host, the host uses all four values to direct (demultiplex) the segment to the appropriate socket.
    
-## Section 2. Connectionless Transport: UDP
+## Section 3. Connectionless Transport: UDP
 ### Notes
  - UDP does just about as little as a transport protocol can do.
    - multiplexing/demultiplexing and light error checking.
@@ -123,3 +123,41 @@
 	 - **Yes**, both segments will be directed to the same socket. For each received segment at the socket interface, the operating system will provide the process with the IP addresses to determine the origins of the individual segments.
  - Suppose that a Web server runs in Host C on port 80. Suppose this Web server uses persistent connections, and is currently receiving requests from two different Hosts, A and B. Are all of the requests being sent through the same socket at Host C? If they are being passed through different sockets, do both of the sockets have port 80? Discuss and explain.
 	 - **No**, Host C operating system transport-layer implementation will differentiate between the packets through a tuple of 4 elements: (Source Port, Source IP, Dest. Port, Dest. IP). This differentiation will enable the TCP from de-multiplexing the coming connection to different socket per connection. The identifier for both of these sockets has 80 for the destination port; however, the identifiers for these sockets have different values for source IP addresses.
+## Section 4. Principles of Reliable Data Transfer
+### Notes
+- Reliable data transfer is a general problem in the networking research.
+	- This problem occurs not only in the transport layer, but also in the application layer and link layer.
+- The framework of studying this problem has two abstraction views:
+	- The service abstraction provided to the upper-layer entities is that of a reliable channel through which data can be transffered. In order, no lost, no corruption services.
+	- It is the responsibility of a reliable data transfer protocol to implement this service abstraction.
+	- This implementation is done over an unreliable channel.
+- **Building a Reliable Data Transfer Protocol**
+- Reliable Data Transfer over a Perfectly Reliable Channel: rdt1.0
+	- ~~**// Photo For the rdt1.0**~~
+	- The sending side of rdt simply accepts data from the upper layer via the  rdt_send(data) event, creates a packet containing the data (via the action  make_pkt(data)) and sends the packet into the channel.
+	- On the receiving side, rdt receives a packet from the underlying channel via  the rdt_rcv(packet) event, removes the data from the packet (via the action  extract (packet, data)) and passes the data up to the upper layer (via  the action deliver_data(data)). 
+	- In this simple protocol, there is no difference between a unit of data and a packet. Also, all packet flow is from the sender to receiver; with a perfectly reliable channel there is no need for the receiver side to provide any feedback to the sender since nothing can go wrong! Note that we have also assumed that the receiver is able to receive data as fast as the sender happens to send data. Thus, there is no need for the receiver to ask the sender to slow down!
+- Reliable Data Transfer over a Channel with Bit Errors: rdt2.0
+	- ~~**// Photo For the rdt2.0**~~
+	- Reliable data transfer protocols based on retransimission are known as ARQ (Automatic Repeat reQuest) protocols. There are three required capabilities to handle the presence of bit errors.
+		- Error detection.
+		- Receiver feedback.
+		- Retransmission.
+	- The send side of rdt2.0 has two states.
+	- In the leftmost state, the send-side protocol is waiting for data to be passed down from the upper layer. When the rdt_send(data) event occurs, the sender will create a packet (sndpkt) containing the data to be sent, along with a packet checksum, and then send the packet via the udt_send(sndpkt) operation.
+	- In the rightmost state, the sender protocol is waiting for an ACK or a NAK packet from the receiver. If an ACK packet is received, the sender knows that the most recently transmitted packet has been received correctly and thus the protocol returns to the state of waiting for data from the upper layer.  If a NAK is received, the protocol retransmits the last packet and waits for an ACK or NAK to be returned by the receiver in response to the retransmitted data packet.
+	- When the sender is in the wait-for-ACK-or-NAK state, it cannot get more data from the upper layer; that is, the rdt_send() event can not occur.
+		- Because of this behavior, protocols such as rdt2.0 are known as stop-and-wait protocols.
+	- The solution for the problem of corrupted ACK/NAK packets is to add a sequence number in the packet. The receiver then need only check this sequence number to determine  whether or not the received packet is a retransmission.
+	- ~~**// Photo For the rdt2.1 Sender**~~
+	- ~~**// Photo For the rdt2.1 Receiver**~~
+	- 
+### Review Questions
+- In our rdt protocols, why did we need to introduce sequence numbers?
+- In our rdt protocols, why did we need to introduce timers?
+- Suppose that the roundtrip delay between sender and receiver is constant and  known to the sender. Would a timer still be necessary in protocol rdt 3.0,  assuming that packets can be lost? Explain.
+- Visit the Go-Back-N interactive animation at the companion Web site.
+	- Have the source send five packets, and then pause the animation before  any of the five packets reach the destination. Then kill the first packet and  resume the animation. Describe what happens.
+	- Repeat the experiment, but now let the first packet reach the destination  and kill the first acknowledgment. Describe again what happens.
+	- Finally, try sending six packets. What happens?
+- Repeat R12, but now with the Selective Repeat interactive animation. How  are Selective Repeat and Go-Back-N different?
